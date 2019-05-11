@@ -38,7 +38,7 @@ function genhash() {
 function send_request(url) {
     this.url = url;
     $.ajax({
-        'url': endpoint + "/" + window.location.hash.substr(1),
+        'url': endPoint + "/" + window.location.hash.substr(1),
         'type': 'POST',
         'data': JSON.stringify(this.url),
         'dataType': 'json',
@@ -56,7 +56,7 @@ function shorturl() {
 var hashh = window.location.hash.substr(1)
 
 if (window.location.hash != "") {
-    $.getJSON(endpoint + "/" + hashh, function(data) {
+    $.getJSON(endPoint + "/" + hashh, function(data) {
         data = data["result"];
 
         if (data != null) {
