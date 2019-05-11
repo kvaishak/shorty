@@ -3,7 +3,7 @@ var endPoint = "https://www.jsonstore.io/114384795ac84252a99ae5a943c3645c36534f1
 //function for getting random url string.
 function getrandom() {
     var random_string = Math.random().toString(32).substring(2, 5) + Math.random().toString(32).substring(2, 5);
-    return random_string()
+    return random_string;
 }
 
 //additional function for random url string. Not used for now.
