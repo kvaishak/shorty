@@ -3,7 +3,7 @@ var endPoint = "https://www.jsonstore.io/114384795ac84252a99ae5a943c3645c36534f1
 //function for getting random url string.
 function getrandom() {
     var random_string = Math.random().toString(32).substring(2, 5) + Math.random().toString(32).substring(2, 5);
-    return random_string()
+    return random_string;
 }
 
 //additional function for random url string. Not used for now.
@@ -38,7 +38,7 @@ function genhash() {
 function send_request(url) {
     this.url = url;
     $.ajax({
-        'url': endpoint + "/" + window.location.hash.substr(1),
+        'url': endPoint + "/" + window.location.hash.substr(1),
         'type': 'POST',
         'data': JSON.stringify(this.url),
         'dataType': 'json',
@@ -56,7 +56,7 @@ function shorturl() {
 var hashh = window.location.hash.substr(1)
 
 if (window.location.hash != "") {
-    $.getJSON(endpoint + "/" + hashh, function(data) {
+    $.getJSON(endPoint + "/" + hashh, function(data) {
         data = data["result"];
 
         if (data != null) {
