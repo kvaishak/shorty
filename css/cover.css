@@ -12,6 +12,19 @@ a:hover {
 }
 
 
+/* for page loading in case of shortened url is accessed */
+
+.se-pre-con {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url(../icons/snake.gif) center no-repeat #fff;
+}
+
+
 /* Custom default button */
 
 .btn-secondary,

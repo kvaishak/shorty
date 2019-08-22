@@ -73,10 +73,12 @@ function shorturl() {
 var hashh = window.location.hash.substr(1)
 
 if (window.location.hash != "") {
+    $(".se-pre-con").show();
     $.getJSON(endPoint + "/" + hashh, function(data) {
         data = data["result"];
 
         if (data != null) {
+            $(".se-pre-con").fadeOut();
             window.location.href = data;
         }
 
