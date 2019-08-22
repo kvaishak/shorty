@@ -78,7 +78,6 @@ if (window.location.hash != "") {
         data = data["result"];
 
         if (data != null) {
-            $(".se-pre-con").fadeOut();
             window.location.href = data;
         }
 
