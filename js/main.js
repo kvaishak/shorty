@@ -1,4 +1,24 @@
-var endPoint = "https://www.jsonstore.io/114384795ac84252a99ae5a943c3645c36534f10bb4f3ce909f1699d9cf34a79";
+const endPoint = "https://api.jsonbin.io/b";
+const SECRET_KEY = '$2b$10$hTO81NojRpU6oqeX68HSbOZKh4k2t51Am5VHN5uHX1FkwbwhnKP12'; //Dvelopment purposes secret key for JSONBIn
+
+//for redirecting any link that has been entered with any hash to its original lengthy URL.
+var binId = window.location.hash.substr(1)
+
+if (binId != "") {
+    $(".se-pre-con").show();
+    let req = new XMLHttpRequest();
+
+    req.onreadystatechange = () => {
+    if (req.readyState == XMLHttpRequest.DONE) {
+        let resp = JSON.parse(req.responseText);
+        window.location.href = encodeURI(resp.url);
+    }
+    };
+
+    req.open("GET", `${endPoint}/${binId}`, true);
+    req.setRequestHeader("secret-key", SECRET_KEY);
+    req.send();
+}
 
 // For Executing the function on ENTER.
 var input = document.getElementById("urlinput");
@@ -31,7 +51,7 @@ function geturl() {
     var url = document.getElementById("urlinput").value;
     var protocol_ok = url.startsWith("http: //") || url.startsWith("https://") || url.startsWith("ftp://");
     if (!protocol_ok) {
-        newurl = "http: //" + url;
+        newurl = "http://" + url;
         return newurl;
     } else {
         return url;
@@ -48,13 +68,22 @@ function genhash() {
 //for sending the hash and the long url to the json end point. Also clearing the input.
 function send_request(url) {
     this.url = url;
-    $.ajax({
-        'url': endPoint + "/" + this.shortHash,
-        'type': 'POST',
-        'data': JSON.stringify(this.url),
-        'dataType': 'json',
-        'contentType': 'application/json; charset=utf-8'
-    })
+    let req = new XMLHttpRequest();
+
+    req.onreadystatechange = () => {
+    if (req.readyState == XMLHttpRequest.DONE) {
+        let resp = JSON.parse(req.responseText);
+        let binId = resp.id;
+        
+        simplecopy(window.location.href + '#' + binId);
+        alert();
+    }
+    };
+
+    req.open("POST", endpoint, true);
+    req.setRequestHeader("Content-Type", "application/json");
+    req.setRequestHeader("secret-key", SECRET_KEY);
+    req.send(`{"url": ${JSON.stringify(url)}}`);
 
     var input = document.getElementById("urlinput");
     input.value = "";
@@ -63,26 +92,9 @@ function send_request(url) {
 //Main function.
 function shorturl() {
     var longurl = geturl();
-    genhash();
     send_request(longurl);
-    simplecopy(window.location.href + '#' + this.shortHash);
-    alert();
 }
 
-//for redirecting any link that has been entered with any hash to its original lengthy URL.
-var hashh = window.location.hash.substr(1)
-
-if (window.location.hash != "") {
-    $(".se-pre-con").show();
-    $.getJSON(endPoint + "/" + hashh, function(data) {
-        data = data["result"];
-
-        if (data != null) {
-            window.location.href = data;
-        }
-
-    });
-}
 
 //for displaying the url has been shortened alert at the bottom.
 function alert() {
