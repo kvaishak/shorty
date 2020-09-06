@@ -80,7 +80,7 @@ function send_request(url) {
     }
     };
 
-    req.open("POST", endpoint, true);
+    req.open("POST", endPoint, true);
     req.setRequestHeader("Content-Type", "application/json");
     req.setRequestHeader("secret-key", SECRET_KEY);
     req.send(`{"url": ${JSON.stringify(url)}}`);
